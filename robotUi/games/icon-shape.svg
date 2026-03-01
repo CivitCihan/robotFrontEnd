@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Sekil Bul">
+  <rect x="8" y="8" width="48" height="48" rx="10" fill="#ffffff" stroke="#0992C2" stroke-width="4"/>
+  <circle cx="22" cy="24" r="7" fill="#0AC4E0"/>
+  <rect x="35" y="17" width="14" height="14" rx="3" fill="#f39c12"/>
+  <polygon points="22,48 14,36 30,36" fill="#2ecc71"/>
+  <polygon points="42,48 34,40 42,32 50,40" fill="#9b59b6"/>
+</svg>

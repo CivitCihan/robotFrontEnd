@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Kart Eslestir">
+  <rect x="10" y="10" width="20" height="28" rx="6" fill="#ffffff" stroke="#0992C2" stroke-width="4"/>
+  <rect x="34" y="10" width="20" height="28" rx="6" fill="#fff7ea" stroke="#0992C2" stroke-width="4"/>
+  <rect x="10" y="26" width="20" height="28" rx="6" fill="#eefaf0" stroke="#0992C2" stroke-width="4"/>
+  <rect x="34" y="26" width="20" height="28" rx="6" fill="#f4f1ff" stroke="#0992C2" stroke-width="4"/>
+  <circle cx="20" cy="24" r="5" fill="#0AC4E0"/>
+  <circle cx="44" cy="40" r="5" fill="#0AC4E0"/>
+</svg>

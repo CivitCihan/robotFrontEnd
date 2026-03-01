@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ayarlar</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-sidebar">
+
+<main class="settings">
+  <div class="setting">
+    <label>Ses Seviyesi</label>
+    <input type="range" min="0" max="100" value="50" id="volume">
+  </div>
+
+  <div class="setting">
+    <label>Parlaklik</label>
+    <input type="range" min="30" max="120" value="100" id="brightness">
+  </div>
+
+  <div class="setting">
+    <label>Kisi Secimi</label>
+    <select id="profileSelect"></select>
+  </div>
+
+  <div class="setting">
+    <button class="parent-btn" onclick="openParentLock()">Ebeveyn Ayarlari</button>
+  </div>
+</main>
+
+<div id="parentLock" class="modal hidden">
+  <div class="modal-content">
+    <h2>Ebeveyn Girisi</h2>
+    <input type="password" id="pinInput" maxlength="4" placeholder="****">
+    <button onclick="checkPin()">Giris</button>
+    <button onclick="closeParentLock()">Iptal</button>
+  </div>
+</div>
+
+<script src="js/sidebar.js"></script>
+<script src="js/miniFaceCanvas.js"></script>
+<script src="js/settings.js"></script>
+
+</body>
+</html>
+
+
