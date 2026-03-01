@@ -1,4 +1,5 @@
 import { RiveFaceController } from "./face/riveFaceController.js";
+import { CanvasFallbackFace } from "./face/canvasFallbackFace.js";
 
 let controller;
 
@@ -13,6 +14,8 @@ export async function initFace(targetEl, options = {}) {
     await controller.init();
   } catch (error) {
     console.error("Rive face init hatasi:", error);
+    controller = new CanvasFallbackFace(targetEl);
+    await controller.init();
   }
 
   return controller;
@@ -28,4 +31,3 @@ export function destroyFace() {
   controller.destroy();
   controller = null;
 }
-
