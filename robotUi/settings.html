@@ -7,33 +7,47 @@
 </head>
 <body class="has-sidebar">
 
-<main class="settings">
-  <div class="setting">
-    <label>Ses Seviyesi</label>
+<main class="settings settings-page">
+  <header class="page-header">
+    <h1 class="page-title">Genel Ayarlar</h1>
+    <p class="page-subtitle">Ses, ekran ve profil ayarlarini buradan yonetin.</p>
+  </header>
+
+  <section class="setting-group">
+    <div class="setting-head">
+      <label for="volume">Ses Seviyesi</label>
+      <span id="volumeValue" class="setting-value">50%</span>
+    </div>
     <input type="range" min="0" max="100" value="50" id="volume">
-  </div>
+  </section>
 
-  <div class="setting">
-    <label>Parlaklik</label>
+  <section class="setting-group">
+    <div class="setting-head">
+      <label for="brightness">Parlaklik</label>
+      <span id="brightnessValue" class="setting-value">100%</span>
+    </div>
     <input type="range" min="30" max="120" value="100" id="brightness">
-  </div>
+  </section>
 
-  <div class="setting">
-    <label>Kisi Secimi</label>
+  <section class="setting-group">
+    <div class="setting-head">
+      <label for="profileSelect">Kisi Secimi</label>
+    </div>
     <select id="profileSelect"></select>
-  </div>
+  </section>
 
-  <div class="setting">
+  <section class="setting-group">
+    <p class="setting-note">Ebeveyn paneline gecis sifre ile korunur.</p>
     <button class="parent-btn" onclick="openParentLock()">Ebeveyn Ayarlari</button>
-  </div>
+  </section>
 </main>
 
 <div id="parentLock" class="modal hidden">
   <div class="modal-content">
     <h2>Ebeveyn Girisi</h2>
     <input type="password" id="pinInput" maxlength="4" placeholder="****">
-    <button onclick="checkPin()">Giris</button>
-    <button onclick="closeParentLock()">Iptal</button>
+    <button class="main-btn" onclick="checkPin()">Giris</button>
+    <button class="main-btn" onclick="closeParentLock()">Iptal</button>
   </div>
 </div>
 
@@ -43,5 +57,4 @@
 
 </body>
 </html>
-
 

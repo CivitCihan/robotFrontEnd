@@ -7,39 +7,57 @@
 </head>
 <body class="has-sidebar">
 
-<main class="parent-container">
-  <section class="card">
-    <h2>Cocuk Profilleri</h2>
-    <select id="childSelect"></select>
-    <button onclick="addChild()">Yeni Profil</button>
-  </section>
+<main class="parent-container parent-page">
+  <header class="page-header">
+    <h1 class="page-title">Ebeveyn Paneli</h1>
+    <p class="page-subtitle">Kullanim, icerik ve profil ayarlarini yonetin.</p>
+  </header>
 
-  <section class="card">
-    <h2>Gelisim Durumu</h2>
-    <p id="progressText">Henuz veri yok</p>
-  </section>
+  <section class="parent-grid">
+    <article class="card">
+      <h2>Cocuk Profilleri</h2>
+      <select id="childSelect"></select>
+      <button class="main-btn" onclick="addChild()">Yeni Profil Ekle</button>
+    </article>
 
-  <section class="card">
-    <h2>Gunluk Kullanim Suresi</h2>
-    <input type="range" min="10" max="120" value="60" id="timeLimit">
-    <span id="timeValue">60 dk</span>
-  </section>
+    <article class="card">
+      <h2>Gelisim Durumu</h2>
+      <p id="progressText" class="progress-text">Henuz veri yok</p>
+    </article>
 
-  <section class="card">
-    <h2>Oyun Kontrolleri</h2>
-    <label><input type="checkbox" checked> Matematik</label><br>
-    <label><input type="checkbox" checked> Turkce</label><br>
-    <label><input type="checkbox" checked> Ingilizce</label>
-  </section>
+    <article class="card">
+      <div class="setting-head">
+        <h2>Gunluk Kullanim Suresi</h2>
+        <span id="timeValue" class="setting-value">60 dk</span>
+      </div>
+      <input type="range" min="10" max="120" value="60" id="timeLimit">
+    </article>
 
-  <section class="card">
-    <h2>Donanim Kontrolleri</h2>
-    <label><input type="checkbox" checked> Mikrofon</label><br>
-    <label><input type="checkbox" checked> Kamera</label>
+    <article class="card">
+      <h2>Oyun Kontrolleri</h2>
+      <div class="toggle-list">
+        <label class="toggle-row"><span>Matematik</span><input type="checkbox" checked></label>
+        <label class="toggle-row"><span>Turkce</span><input type="checkbox" checked></label>
+        <label class="toggle-row"><span>Ingilizce</span><input type="checkbox" checked></label>
+      </div>
+    </article>
+
+    <article class="card">
+      <h2>Donanim Kontrolleri</h2>
+      <div class="toggle-list">
+        <label class="toggle-row"><span>Mikrofon</span><input type="checkbox" checked></label>
+        <label class="toggle-row"><span>Kamera</span><input type="checkbox" checked></label>
+      </div>
+    </article>
+
+    <article class="card face-preview-card">
+      <h2>Asistan Onizleme</h2>
+      <div class="face-preview-wrap">
+        <canvas id="faceCanvas" width="180" height="180"></canvas>
+      </div>
+    </article>
   </section>
 </main>
-
-<canvas id="faceCanvas" width="180" height="180"></canvas>
 
 <script src="js/sidebar.js"></script>
 <script src="js/miniFaceCanvas.js"></script>

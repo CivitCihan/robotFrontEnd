@@ -1,4 +1,66 @@
 (function () {
+  var THEME_KEY = "robot-theme";
+
+  function getStoredTheme() {
+    var savedTheme = localStorage.getItem(THEME_KEY);
+    if (savedTheme === "dark" || savedTheme === "light") {
+      return savedTheme;
+    }
+    return "light";
+  }
+
+  function applyTheme(theme) {
+    var root = document.documentElement;
+    root.setAttribute("data-theme", theme);
+  }
+
+  function setTheme(theme, controlsRoot) {
+    applyTheme(theme);
+    localStorage.setItem(THEME_KEY, theme);
+    syncThemeControls(controlsRoot, theme);
+  }
+
+  function syncThemeControls(controlsRoot, theme) {
+    if (!controlsRoot) return;
+    var buttons = controlsRoot.querySelectorAll(".theme-btn");
+    buttons.forEach(function (button) {
+      var isActive = button.getAttribute("data-theme-value") === theme;
+      button.classList.toggle("is-active", isActive);
+      button.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+  }
+
+  function buildThemeControls() {
+    var currentTheme = getStoredTheme();
+    var wrap = document.createElement("div");
+    wrap.className = "theme-switch";
+    wrap.setAttribute("role", "group");
+    wrap.setAttribute("aria-label", "Tema secimi");
+
+    var lightBtn = document.createElement("button");
+    lightBtn.className = "theme-btn";
+    lightBtn.type = "button";
+    lightBtn.setAttribute("data-theme-value", "light");
+    lightBtn.innerHTML = '<span aria-hidden="true">&#9728;</span><span class="theme-btn-text">Aydinlik</span>';
+
+    var darkBtn = document.createElement("button");
+    darkBtn.className = "theme-btn";
+    darkBtn.type = "button";
+    darkBtn.setAttribute("data-theme-value", "dark");
+    darkBtn.innerHTML = '<span aria-hidden="true">&#9790;</span><span class="theme-btn-text">Koyu</span>';
+
+    [lightBtn, darkBtn].forEach(function (button) {
+      button.addEventListener("click", function () {
+        var nextTheme = button.getAttribute("data-theme-value");
+        setTheme(nextTheme, wrap);
+      });
+      wrap.appendChild(button);
+    });
+
+    syncThemeControls(wrap, currentTheme);
+    return wrap;
+  }
+
   function getPageName() {
     var path = window.location.pathname || "";
     var file = path.split("/").pop();
@@ -10,6 +72,8 @@
     var items = [
       { href: "index.html", label: "Ana Sayfa", icon: "&#127968;" },
       { href: "game.html", label: "Oyun", icon: "&#127918;" },
+      { href: "friends.html", label: "Arkadaslar", icon: "&#128101;" },
+      { href: "education.html", label: "Egitim", icon: "&#127891;" },
       { href: "settings.html", label: "Ayarlar", icon: "&#9881;" },
     ];
 
@@ -41,6 +105,7 @@
     });
 
     sidebar.appendChild(list);
+    sidebar.appendChild(buildThemeControls());
     return sidebar;
   }
 
@@ -104,6 +169,7 @@
     });
   }
 
+  applyTheme(getStoredTheme());
   ensureSidebar();
   setupLongPressLabels();
 })();

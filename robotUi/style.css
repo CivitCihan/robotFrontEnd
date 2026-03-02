@@ -20,9 +20,19 @@ body {
   --c-cyan: #4ec8f2;
   --c-cream: #f5f7ee;
   --c-text: #163266;
+  --c-text-muted: rgba(22, 50, 102, 0.82);
   --c-surface-strong: #ffffff;
   --c-border: #b5d8f5;
   --c-shadow: rgba(22, 50, 102, 0.16);
+  --bg-radial-a: rgba(78, 200, 242, 0.16);
+  --bg-radial-b: rgba(26, 109, 207, 0.1);
+  --bg-linear-start: #f7fafc;
+  --bg-linear-mid: #f1f8ff;
+  --bg-linear-end: #f6f9ff;
+  --input-bg: #ffffff;
+  --theme-btn-bg: rgba(255, 255, 255, 0.08);
+  --theme-btn-border: rgba(255, 255, 255, 0.2);
+  --theme-btn-text: #eaf3ff;
   --shadow-soft: 0 8px 24px -18px var(--c-shadow);
   --shadow-mid: 0 14px 32px -20px rgba(22, 50, 102, 0.24);
   --ease-ui: 0.2s ease;
@@ -31,12 +41,35 @@ body {
   --radius-md: 14px;
 }
 
+:root[data-theme="dark"] {
+  --c-navy: #8cb8ff;
+  --c-blue: #5f9eff;
+  --c-cyan: #67d6ff;
+  --c-cream: #e8f1ff;
+  --c-text: #e8f1ff;
+  --c-text-muted: rgba(232, 241, 255, 0.78);
+  --c-surface-strong: #1a2438;
+  --c-border: #344b72;
+  --c-shadow: rgba(0, 0, 0, 0.45);
+  --bg-radial-a: rgba(103, 214, 255, 0.12);
+  --bg-radial-b: rgba(95, 158, 255, 0.12);
+  --bg-linear-start: #121a29;
+  --bg-linear-mid: #111b2f;
+  --bg-linear-end: #172238;
+  --input-bg: #1c2a42;
+  --theme-btn-bg: rgba(255, 255, 255, 0.04);
+  --theme-btn-border: rgba(255, 255, 255, 0.18);
+  --theme-btn-text: #dce9ff;
+  --shadow-soft: 0 10px 26px -18px rgba(0, 0, 0, 0.6);
+  --shadow-mid: 0 16px 34px -20px rgba(0, 0, 0, 0.68);
+}
+
 body {
   margin: 0;
   background:
-    radial-gradient(circle at 86% 10%, rgba(78, 200, 242, 0.16), transparent 220px),
-    radial-gradient(circle at 10% 90%, rgba(26, 109, 207, 0.1), transparent 250px),
-    linear-gradient(160deg, #f7fafc 0%, #f1f8ff 58%, #f6f9ff 100%);
+    radial-gradient(circle at 86% 10%, var(--bg-radial-a), transparent 220px),
+    radial-gradient(circle at 10% 90%, var(--bg-radial-b), transparent 250px),
+    linear-gradient(160deg, var(--bg-linear-start) 0%, var(--bg-linear-mid) 58%, var(--bg-linear-end) 100%);
   font-family: "Comic Sans MS", "Trebuchet MS", sans-serif;
   color: var(--c-text);
   display: flex;
@@ -113,6 +146,45 @@ select {
   align-items: center;
 }
 
+.has-sidebar .gallery-sidebar .theme-switch {
+  width: calc(100% - 16px);
+  margin-top: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.has-sidebar .gallery-sidebar .theme-btn {
+  min-height: 38px;
+  border-radius: 12px;
+  border: 1px solid var(--theme-btn-border);
+  background: var(--theme-btn-bg);
+  color: var(--theme-btn-text);
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: transform var(--ease-ui), background var(--ease-ui), border-color var(--ease-ui), box-shadow var(--ease-ui);
+}
+
+.has-sidebar .gallery-sidebar .theme-btn:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.has-sidebar .gallery-sidebar .theme-btn.is-active {
+  background: linear-gradient(180deg, rgba(78, 200, 242, 0.34), rgba(26, 109, 207, 0.28));
+  border-color: rgba(255, 255, 255, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.has-sidebar .gallery-sidebar .theme-btn-text {
+  line-height: 1;
+}
+
 .has-sidebar .gallery-sidebar .gallery-btn {
   display: flex;
   align-items: center;
@@ -178,6 +250,8 @@ select {
 
 .has-sidebar .settings,
 .has-sidebar .parent-container,
+.has-sidebar .friends-container,
+.has-sidebar .education-container,
 .has-sidebar .game-container {
   margin-left: var(--sidebar-width);
   width: calc(100% - var(--sidebar-width));
@@ -205,7 +279,33 @@ select {
   width: 100%;
 }
 
-.setting {
+.settings-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.page-header {
+  background: linear-gradient(180deg, #ffffff, #f5faff);
+  border: 2px solid var(--c-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 18px;
+}
+
+.page-title {
+  margin: 0;
+  font-size: 30px;
+  letter-spacing: 0.2px;
+}
+
+.page-subtitle {
+  margin: 8px 0 0;
+  font-size: 15px;
+  color: rgba(22, 50, 102, 0.8);
+}
+
+.setting-group {
   margin-bottom: 20px;
   padding: 18px;
   border-radius: var(--radius-lg);
@@ -222,6 +322,38 @@ label {
   color: var(--c-text);
 }
 
+.setting-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.setting-head label,
+.setting-head h2 {
+  margin-bottom: 10px;
+}
+
+.setting-value {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(26, 109, 207, 0.24);
+  background: #eef6ff;
+  color: var(--c-navy);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 6px 10px;
+}
+
+.setting-note {
+  margin: 0 0 12px;
+  font-size: 14px;
+  color: rgba(22, 50, 102, 0.78);
+}
+
 input[type="range"],
 select {
   width: 100%;
@@ -229,7 +361,7 @@ select {
   border-radius: 10px;
   border: 1px solid var(--c-border);
   padding: 8px 10px;
-  background: #fff;
+  background: var(--input-bg);
 }
 
 .parent-btn {
@@ -307,6 +439,18 @@ select {
   width: 100%;
 }
 
+.parent-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.parent-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
 .card {
   background: linear-gradient(180deg, var(--c-surface-strong), #f6fbff);
   padding: 20px;
@@ -319,6 +463,12 @@ select {
 .card h2 {
   margin: 0 0 12px;
   font-size: 22px;
+}
+
+.progress-text {
+  margin: 0;
+  white-space: pre-line;
+  color: rgba(22, 50, 102, 0.84);
 }
 
 .card button {
@@ -337,6 +487,261 @@ select {
 .card button:hover {
   transform: translateY(-1px);
   box-shadow: var(--shadow-mid);
+}
+
+.toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toggle-row {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(22, 50, 102, 0.9);
+}
+
+.toggle-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--c-blue);
+}
+
+.face-preview-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.face-preview-wrap {
+  flex: 1;
+  min-height: 180px;
+  border-radius: 14px;
+  border: 1px solid rgba(26, 109, 207, 0.2);
+  background: linear-gradient(180deg, #fbfdff, #eff6ff);
+  display: grid;
+  place-items: center;
+}
+
+.face-preview-wrap #faceCanvas {
+  width: 160px;
+  height: 160px;
+}
+
+/* =====================
+   FRIENDS + EDUCATION
+===================== */
+
+.friends-container,
+.education-container {
+  padding: 24px;
+  max-width: 980px;
+  width: 100%;
+}
+
+.friends-page,
+.education-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.friends-toolbar label {
+  margin-bottom: 8px;
+}
+
+#friendSearch {
+  width: 100%;
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--input-bg);
+  color: var(--c-text);
+}
+
+.friends-grid,
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.friend-card,
+.lesson-card,
+.stat-card {
+  margin-bottom: 0;
+}
+
+.friend-top,
+.lesson-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.friend-top h2,
+.lesson-top h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.friend-status,
+.lesson-level {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+
+.friend-status.is-active {
+  color: #1a7a4d;
+  background: #e8f9ef;
+  border-color: #aee6c4;
+}
+
+.friend-status.is-busy {
+  color: #855d00;
+  background: #fff7e6;
+  border-color: #f0d59a;
+}
+
+.friend-status.is-offline {
+  color: #5d6b86;
+  background: #eef2f8;
+  border-color: #cad5e4;
+}
+
+.lesson-level {
+  color: #14437d;
+  background: #eaf3ff;
+  border-color: #bcd5f3;
+}
+
+.friend-meta,
+.friend-badge,
+.lesson-score {
+  margin: 8px 0 0;
+  color: var(--c-text-muted);
+}
+
+.friend-badge {
+  font-weight: 700;
+}
+
+.friend-action,
+.lesson-action {
+  margin-top: 14px;
+  width: 100%;
+}
+
+.lesson-action.is-done {
+  border-color: #86b8e9;
+  background: #eef6ff;
+  color: #3e5a86;
+  cursor: not-allowed;
+}
+
+.education-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat-card h2 {
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: var(--c-navy);
+}
+
+:root[data-theme="dark"] .page-subtitle,
+:root[data-theme="dark"] .setting-note,
+:root[data-theme="dark"] .progress-text,
+:root[data-theme="dark"] .toggle-row {
+  color: var(--c-text-muted);
+}
+
+:root[data-theme="dark"] .main-btn,
+:root[data-theme="dark"] .back-btn,
+:root[data-theme="dark"] .game-button,
+:root[data-theme="dark"] .card button,
+:root[data-theme="dark"] .lesson-action.is-done {
+  background: linear-gradient(180deg, #22314d, #1c2942);
+  color: var(--c-text);
+  border-color: #4f6d9d;
+}
+
+:root[data-theme="dark"] .page-header,
+:root[data-theme="dark"] .setting-group,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .modal-content,
+:root[data-theme="dark"] .game-card,
+:root[data-theme="dark"] .visual-choice-btn,
+:root[data-theme="dark"] .face-preview-wrap,
+:root[data-theme="dark"] .friends-toolbar.card {
+  background: linear-gradient(180deg, #202d45, #1a2539);
+  border-color: #34507b;
+}
+
+:root[data-theme="dark"] .game-area {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(103, 214, 255, 0.08), transparent 170px),
+    radial-gradient(circle at 8% 90%, rgba(95, 158, 255, 0.08), transparent 180px),
+    #182236;
+}
+
+:root[data-theme="dark"] .face-area {
+  background: linear-gradient(180deg, #1a263c, #152237);
+  border-right-color: #36517d;
+}
+
+:root[data-theme="dark"] .game-card.game-accent-a,
+:root[data-theme="dark"] .game-card.game-accent-b,
+:root[data-theme="dark"] .game-card.game-accent-c,
+:root[data-theme="dark"] .game-card.game-accent-d {
+  background: linear-gradient(180deg, #22314d, #1c2942);
+}
+
+:root[data-theme="dark"] .game-card-desc {
+  color: var(--c-text-muted);
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .friend-status.is-active {
+  background: #1f3a2f;
+  border-color: #2f6a4d;
+  color: #9de0bc;
+}
+
+:root[data-theme="dark"] .friend-status.is-busy {
+  background: #3a3220;
+  border-color: #7f6a35;
+  color: #f0d89a;
+}
+
+:root[data-theme="dark"] .friend-status.is-offline {
+  background: #2a3242;
+  border-color: #4a5a79;
+  color: #b7c5df;
+}
+
+:root[data-theme="dark"] .lesson-level,
+:root[data-theme="dark"] .setting-value {
+  background: #243758;
+  border-color: #46689f;
+  color: #d6e6ff;
 }
 
 /* =====================
@@ -662,14 +1067,22 @@ select:focus-visible {
     border-radius: 14px;
   }
 
+  .has-sidebar .gallery-sidebar .theme-switch {
+    width: calc(100% - 12px);
+  }
+
   .has-sidebar .settings,
   .has-sidebar .parent-container,
+  .has-sidebar .friends-container,
+  .has-sidebar .education-container,
   .has-sidebar .game-container {
     padding-right: 14px;
   }
 
   .parent-container,
-  .settings {
+  .settings,
+  .friends-container,
+  .education-container {
     padding: 16px;
   }
 
@@ -680,6 +1093,16 @@ select:focus-visible {
 
   .card h2 {
     font-size: 20px;
+  }
+
+  .parent-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .friends-grid,
+  .lesson-grid,
+  .education-stats {
+    grid-template-columns: 1fr;
   }
 
   .game-container {
@@ -752,8 +1175,28 @@ select:focus-visible {
     max-width: 120px;
   }
 
+  .has-sidebar .gallery-sidebar .theme-switch {
+    position: fixed;
+    right: 10px;
+    bottom: 86px;
+    width: 96px;
+    max-width: none;
+    padding: 6px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(18, 56, 114, 0.78);
+    backdrop-filter: blur(4px);
+    z-index: 25;
+  }
+
+  .has-sidebar .gallery-sidebar .theme-btn {
+    min-height: 40px;
+  }
+
   .has-sidebar .settings,
   .has-sidebar .parent-container,
+  .has-sidebar .friends-container,
+  .has-sidebar .education-container,
   .has-sidebar .game-container {
     margin-left: 0;
     width: 100%;
@@ -768,9 +1211,15 @@ select:focus-visible {
 
   .parent-container,
   .settings,
+  .friends-container,
+  .education-container,
   .game-area {
     padding-left: 12px;
     padding-right: 12px;
+  }
+
+  .page-title {
+    font-size: 26px;
   }
 
   .game-list {
@@ -802,6 +1251,10 @@ select:focus-visible {
 
   #instructionText {
     font-size: 24px;
+  }
+
+  .page-title {
+    font-size: 22px;
   }
 
   .visual-choice-grid,

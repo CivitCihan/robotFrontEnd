@@ -1,68 +1,93 @@
-console.log("Settings JS çalışıyor");
-
 const volume = document.getElementById("volume");
 const brightness = document.getElementById("brightness");
 const profileSelect = document.getElementById("profileSelect");
+const volumeValue = document.getElementById("volumeValue");
+const brightnessValue = document.getElementById("brightnessValue");
 
 const profiles = [
   { name: "Ali", age: 5 },
-  { name: "Ayşe", age: 7 }
+  { name: "Ayse", age: 7 },
 ];
 
-// PROFİLLERİ YÜKLE
-profiles.forEach(p => {
+profiles.forEach((profile) => {
   const option = document.createElement("option");
-  option.text = `${p.name} (${p.age})`;
+  option.text = `${profile.name} (${profile.age})`;
   profileSelect.add(option);
 });
 
-// SES
+function setVolumeLabel() {
+  if (volumeValue) {
+    volumeValue.textContent = `${volume.value}%`;
+  }
+}
+
+function setBrightnessLabel() {
+  if (brightnessValue) {
+    brightnessValue.textContent = `${brightness.value}%`;
+  }
+}
+
+setVolumeLabel();
+setBrightnessLabel();
+
 volume.addEventListener("input", () => {
-  drawFace("happy");
-  speak("Ses ayarlandı");
+  setVolumeLabel();
+  if (typeof window.drawFace === "function") {
+    window.drawFace("happy");
+  }
 });
 
-// PARLAKLIK
+volume.addEventListener("change", () => {
+  speak("Ses ayari guncellendi");
+});
+
 brightness.addEventListener("input", () => {
+  setBrightnessLabel();
   document.body.style.filter = `brightness(${brightness.value}%)`;
 });
 
-// EBEVEYN KİLİDİ
 function openParentLock() {
   document.getElementById("parentLock").classList.remove("hidden");
-  drawFace("serious");
-  speak("Bu alan büyükler içindir");
+  if (typeof window.drawFace === "function") {
+    window.drawFace("serious");
+  }
+  speak("Bu alan buyukler icindir");
 }
 
 function closeParentLock() {
   document.getElementById("parentLock").classList.add("hidden");
-  drawFace("neutral");
+  if (typeof window.drawFace === "function") {
+    window.drawFace("neutral");
+  }
 }
 
 function checkPin() {
   const pin = document.getElementById("pinInput").value;
 
   if (pin === "1234") {
-    // Mutlu ifade + yönlendirme
-    drawFace("happy");
-    speak("Ebeveyn paneline geçiliyor");
-
-    // Kısa bir gecikme, yüz ve ses hissedilsin
+    if (typeof window.drawFace === "function") {
+      window.drawFace("happy");
+    }
+    speak("Ebeveyn paneline geciliyor");
     setTimeout(() => {
       window.location.href = "parents.html";
     }, 800);
-
-  } else {
-    // Hatalı giriş
-    drawFace("sad");
-    speak("Yanlış şifre");
+    return;
   }
+
+  if (typeof window.drawFace === "function") {
+    window.drawFace("sad");
+  }
+  speak("Yanlis sifre");
 }
 
-
-// SES
 function speak(text) {
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+
   const msg = new SpeechSynthesisUtterance(text);
   msg.lang = "tr-TR";
+  window.speechSynthesis.cancel();
   window.speechSynthesis.speak(msg);
 }
