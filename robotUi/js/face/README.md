@@ -21,8 +21,10 @@ Each skin has per-part styles:
 - `eye`, `cheek`, `mouth`
 - `antenna`, `neck`
 - `bodyOuter`, `bodyInner`
+- `hip`, `lowerBody`
 - `arm`, `hand`
 - `panel`
+- `wheelTire`, `wheelRim`, `wheelCore`
 
 ## Runtime examples
 
@@ -36,4 +38,3 @@ setCharacterPartSkin("panel", { light: "#FFD166" });
 
 - If Rive fails to load, app automatically falls back to the 2D canvas robot renderer.
 - 2D renderer is state-driven (`idle`, `listening`, `thinking`, `speaking`, `happy`).
-

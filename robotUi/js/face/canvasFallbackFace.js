@@ -142,10 +142,16 @@ export class CanvasFallbackFace {
     const bodyW = headW * 0.9;
     const bodyH = headH * 1.8;
     const bodyY = cy + headH * 1.05;
+    const lowerBodyY = bodyY + bodyH * 0.58;
+    const lowerBodyW = bodyW * 0.95;
+    const lowerBodyH = bodyH * 0.55;
     const neckW = headW * 0.18;
     const neckH = headH * 0.25;
     const armAnchorY = bodyY - bodyH * 0.25;
     const armLen = bodyH * 0.6;
+    const wheelRadius = Math.max(28, Math.floor(headW * 0.18));
+    const wheelY = lowerBodyY + lowerBodyH * 0.35;
+    const wheelOffsetX = lowerBodyW * 0.34;
     const armSwing =
       this.currentState === "happy"
         ? this.skin.motion.armSwingHappy
@@ -153,6 +159,13 @@ export class CanvasFallbackFace {
           ? this.skin.motion.armSwingSpeaking
           : this.skin.motion.armSwingIdle;
     const armWave = Math.sin(this.time * 0.06) * armSwing;
+    const wheelSpinSpeed =
+      this.currentState === "happy"
+        ? this.skin.motion.wheelSpinSpeedHappy
+        : this.currentState === "speaking"
+          ? this.skin.motion.wheelSpinSpeedSpeaking
+          : this.skin.motion.wheelSpinSpeedIdle;
+    const wheelAngle = this.time * wheelSpinSpeed;
 
     const antennaX = cx;
     const antennaY = cy - headH * 0.55;
@@ -198,6 +211,47 @@ export class CanvasFallbackFace {
     ctx.fill();
     ctx.stroke();
 
+    // Hip connector
+    const hip = this.skin.parts.hip;
+    ctx.fillStyle = hip.fill;
+    ctx.strokeStyle = hip.stroke;
+    ctx.lineWidth = hip.lineWidth;
+    this.pathRoundedRect(
+      cx - bodyW * 0.28,
+      bodyY + bodyH * 0.33,
+      bodyW * 0.56,
+      bodyH * 0.2,
+      16
+    );
+    ctx.fill();
+    ctx.stroke();
+
+    // Lower body / chassis
+    const lower = this.skin.parts.lowerBody;
+    ctx.fillStyle = lower.fill;
+    ctx.strokeStyle = lower.stroke;
+    ctx.lineWidth = lower.lineWidth;
+    this.pathRoundedRect(
+      cx - lowerBodyW / 2,
+      lowerBodyY - lowerBodyH / 2,
+      lowerBodyW,
+      lowerBodyH,
+      22
+    );
+    ctx.fill();
+    ctx.stroke();
+
+    // Chassis shadow stripe for depth
+    ctx.fillStyle = lower.shadow;
+    this.pathRoundedRect(
+      cx - lowerBodyW * 0.42,
+      lowerBodyY + lowerBodyH * 0.04,
+      lowerBodyW * 0.84,
+      lowerBodyH * 0.22,
+      10
+    );
+    ctx.fill();
+
     // Panel light
     const panel = this.skin.parts.panel;
     ctx.fillStyle = panel.fill;
@@ -210,6 +264,21 @@ export class CanvasFallbackFace {
     ctx.beginPath();
     ctx.arc(cx, bodyY + bodyH * 0.03, 8 + Math.sin(this.time * 0.1) * 2, 0, Math.PI * 2);
     ctx.fill();
+
+    // Wheel struts
+    ctx.strokeStyle = this.skin.parts.hip.stroke;
+    ctx.lineWidth = 8;
+    ctx.lineCap = "round";
+    ctx.beginPath();
+    ctx.moveTo(cx - lowerBodyW * 0.27, lowerBodyY + lowerBodyH * 0.1);
+    ctx.lineTo(cx - wheelOffsetX, wheelY - wheelRadius * 0.35);
+    ctx.moveTo(cx + lowerBodyW * 0.27, lowerBodyY + lowerBodyH * 0.1);
+    ctx.lineTo(cx + wheelOffsetX, wheelY - wheelRadius * 0.35);
+    ctx.stroke();
+
+    // Wheels
+    this.drawWheel(cx - wheelOffsetX, wheelY, wheelRadius, wheelAngle);
+    this.drawWheel(cx + wheelOffsetX, wheelY, wheelRadius, wheelAngle);
 
     // Head
     ctx.beginPath();
@@ -329,5 +398,71 @@ export class CanvasFallbackFace {
     ctx.lineTo(x, y + radius);
     ctx.quadraticCurveTo(x, y, x + radius, y);
     ctx.closePath();
+  }
+
+  drawWheel(cx, cy, radius, angle) {
+    const ctx = this.ctx;
+    if (!ctx) return;
+
+    const tire = this.skin.parts.wheelTire;
+    const rim = this.skin.parts.wheelRim;
+    const core = this.skin.parts.wheelCore;
+
+    // Tire
+    ctx.fillStyle = tire.fill;
+    ctx.strokeStyle = tire.stroke;
+    ctx.lineWidth = tire.lineWidth;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // Tread dashes
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(angle);
+    ctx.strokeStyle = tire.tread;
+    ctx.lineWidth = 3;
+    for (let i = 0; i < 12; i += 1) {
+      const a = (Math.PI * 2 * i) / 12;
+      const x1 = Math.cos(a) * (radius * 0.72);
+      const y1 = Math.sin(a) * (radius * 0.72);
+      const x2 = Math.cos(a) * (radius * 0.93);
+      const y2 = Math.sin(a) * (radius * 0.93);
+      ctx.beginPath();
+      ctx.moveTo(x1, y1);
+      ctx.lineTo(x2, y2);
+      ctx.stroke();
+    }
+
+    // Rim
+    ctx.fillStyle = rim.fill;
+    ctx.strokeStyle = rim.stroke;
+    ctx.lineWidth = rim.lineWidth;
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.58, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+
+    // Spokes
+    ctx.strokeStyle = rim.stroke;
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 6; i += 1) {
+      const a = (Math.PI * 2 * i) / 6;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(Math.cos(a) * (radius * 0.45), Math.sin(a) * (radius * 0.45));
+      ctx.stroke();
+    }
+
+    // Core
+    ctx.fillStyle = core.fill;
+    ctx.strokeStyle = core.stroke;
+    ctx.lineWidth = core.lineWidth;
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.18, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
   }
 }

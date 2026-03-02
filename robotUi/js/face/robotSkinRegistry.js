@@ -13,6 +13,11 @@ const ROBOT_CLASSIC = {
     arm: { fill: "#E2E9F3", stroke: "#9EABBC", lineWidth: 4 },
     hand: { fill: "#D2DBE8", stroke: "#97A3B2", lineWidth: 3 },
     panel: { fill: "#0F2F5F", stroke: "#2C5A8E", light: "#39E2B3", lineWidth: 2 },
+    lowerBody: { fill: "#C9D4E4", stroke: "#8D9CB0", lineWidth: 4, shadow: "#A7B5C9" },
+    hip: { fill: "#B8C5D8", stroke: "#7E8FA4", lineWidth: 3 },
+    wheelTire: { fill: "#2D3440", stroke: "#151922", lineWidth: 4, tread: "#3A4250" },
+    wheelRim: { fill: "#C8D4E5", stroke: "#8B9BB1", lineWidth: 3 },
+    wheelCore: { fill: "#7CE7FF", stroke: "#CFFDFF", lineWidth: 2 },
   },
   motion: {
     bobAmp: 7,
@@ -21,6 +26,9 @@ const ROBOT_CLASSIC = {
     armSwingSpeaking: 0.4,
     armSwingHappy: 0.55,
     antennaSwing: 0.08,
+    wheelSpinSpeedIdle: 0.05,
+    wheelSpinSpeedSpeaking: 0.08,
+    wheelSpinSpeedHappy: 0.12,
   },
 };
 
@@ -39,6 +47,11 @@ const ROBOT_NEON = {
     arm: { fill: "#DCF6FF", stroke: "#8ECBE5", lineWidth: 4 },
     hand: { fill: "#CDEBFA", stroke: "#7EB5CC", lineWidth: 3 },
     panel: { fill: "#123568", stroke: "#2B67A8", light: "#7DFFCE", lineWidth: 2 },
+    lowerBody: { fill: "#C9EBF9", stroke: "#73B3D0", lineWidth: 4, shadow: "#A9DDEE" },
+    hip: { fill: "#B7E0F1", stroke: "#68A3C2", lineWidth: 3 },
+    wheelTire: { fill: "#273140", stroke: "#111722", lineWidth: 4, tread: "#344257" },
+    wheelRim: { fill: "#CBEFFC", stroke: "#79B9D7", lineWidth: 3 },
+    wheelCore: { fill: "#7DFFCE", stroke: "#D2FFEF", lineWidth: 2 },
   },
   motion: {
     bobAmp: 8,
@@ -47,6 +60,9 @@ const ROBOT_NEON = {
     armSwingSpeaking: 0.45,
     armSwingHappy: 0.6,
     antennaSwing: 0.1,
+    wheelSpinSpeedIdle: 0.055,
+    wheelSpinSpeedSpeaking: 0.09,
+    wheelSpinSpeedHappy: 0.13,
   },
 };
 
@@ -65,6 +81,11 @@ const ROBOT_COPPER = {
     arm: { fill: "#EEDBC9", stroke: "#B78A67", lineWidth: 4 },
     hand: { fill: "#E3CAB2", stroke: "#A87A57", lineWidth: 3 },
     panel: { fill: "#3D2C22", stroke: "#77553F", light: "#FFD35A", lineWidth: 2 },
+    lowerBody: { fill: "#DCC2A8", stroke: "#9F7659", lineWidth: 4, shadow: "#C3A78D" },
+    hip: { fill: "#CCAE92", stroke: "#956A4D", lineWidth: 3 },
+    wheelTire: { fill: "#312A28", stroke: "#17110F", lineWidth: 4, tread: "#433733" },
+    wheelRim: { fill: "#E3C6AB", stroke: "#A97959", lineWidth: 3 },
+    wheelCore: { fill: "#FFD35A", stroke: "#FFF1C3", lineWidth: 2 },
   },
   motion: {
     bobAmp: 6,
@@ -73,6 +94,9 @@ const ROBOT_COPPER = {
     armSwingSpeaking: 0.36,
     armSwingHappy: 0.48,
     antennaSwing: 0.07,
+    wheelSpinSpeedIdle: 0.048,
+    wheelSpinSpeedSpeaking: 0.072,
+    wheelSpinSpeedHappy: 0.11,
   },
 };
 
@@ -114,4 +138,3 @@ export function mergePartStyle(currentSkin, partName, partPatch) {
   nextSkin.parts[partName] = deepMerge(currentSkin.parts[partName], partPatch);
   return nextSkin;
 }
-

@@ -60,10 +60,6 @@ function checkPin() {
 }
 
 
-function goBack() {
-  window.location.href = "index.html";
-}
-
 // SES
 function speak(text) {
   const msg = new SpeechSynthesisUtterance(text);
