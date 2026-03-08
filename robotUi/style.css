@@ -361,6 +361,448 @@ select {
   color: var(--c-text);
   font-weight: 700;
   cursor: pointer;
+<<<<<<< Updated upstream
+=======
+  box-shadow: var(--shadow-soft);
+}
+
+.card button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-mid);
+}
+
+.toggle-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toggle-row {
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(22, 50, 102, 0.9);
+}
+
+.toggle-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--c-blue);
+}
+
+.face-preview-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.face-preview-wrap {
+  flex: 1;
+  min-height: 180px;
+  border-radius: 14px;
+  border: 1px solid rgba(26, 109, 207, 0.2);
+  background: linear-gradient(180deg, #fbfdff, #eff6ff);
+  display: grid;
+  place-items: center;
+}
+
+.face-preview-wrap #faceCanvas {
+  width: 160px;
+  height: 160px;
+}
+
+/* =====================
+   FRIENDS + EDUCATION
+===================== */
+
+.friends-container,
+.education-container {
+  padding: 24px;
+  max-width: 980px;
+  width: 100%;
+}
+
+.friends-page,
+.education-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.friends-toolbar label {
+  margin-bottom: 8px;
+}
+
+#friendSearch {
+  width: 100%;
+  border: 1px solid var(--c-border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--input-bg);
+  color: var(--c-text);
+}
+
+.friends-grid,
+.lesson-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.friend-card,
+.lesson-card,
+.stat-card {
+  margin-bottom: 0;
+}
+
+.friend-top,
+.lesson-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.friend-top h2,
+.lesson-top h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.friend-status,
+.lesson-level {
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  border: 1px solid transparent;
+}
+
+.friend-status.is-active {
+  color: #1a7a4d;
+  background: #e8f9ef;
+  border-color: #aee6c4;
+}
+
+.friend-status.is-busy {
+  color: #855d00;
+  background: #fff7e6;
+  border-color: #f0d59a;
+}
+
+.friend-status.is-offline {
+  color: #5d6b86;
+  background: #eef2f8;
+  border-color: #cad5e4;
+}
+
+.lesson-level {
+  color: #14437d;
+  background: #eaf3ff;
+  border-color: #bcd5f3;
+}
+
+.friend-meta,
+.friend-badge,
+.lesson-score {
+  margin: 8px 0 0;
+  color: var(--c-text-muted);
+}
+
+.friend-badge {
+  font-weight: 700;
+}
+
+.friend-action,
+.lesson-action {
+  margin-top: 14px;
+  width: 100%;
+}
+
+.lesson-action.is-done {
+  border-color: #86b8e9;
+  background: #eef6ff;
+  color: #3e5a86;
+  cursor: not-allowed;
+}
+
+.education-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.stat-card h2 {
+  margin-bottom: 8px;
+}
+
+.stat-value {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: var(--c-navy);
+}
+
+.lesson-screen-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.lesson-progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.lesson-progress-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lesson-progress-text {
+  margin: 0;
+  color: var(--c-text-muted);
+  font-weight: 700;
+}
+
+.lesson-progress-bar {
+  width: 100%;
+  height: 12px;
+  border-radius: 999px;
+  background: #dfeafb;
+  border: 1px solid #bfd4ef;
+  overflow: hidden;
+}
+
+.lesson-progress-bar > span {
+  display: block;
+  width: 0;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #2c86f3, #4fc4ff);
+  transition: width 220ms ease;
+}
+
+.lesson-track-card {
+  overflow: hidden;
+}
+
+.lesson-track-title {
+  margin: 0 0 14px;
+}
+
+.lesson-track {
+  display: flex;
+  gap: 18px;
+  overflow-x: auto;
+  padding: 4px 2px 10px;
+  scroll-snap-type: x proximity;
+}
+
+.lesson-track::-webkit-scrollbar {
+  height: 8px;
+}
+
+.lesson-track::-webkit-scrollbar-thumb {
+  background: #bfd4ef;
+  border-radius: 999px;
+}
+
+.lesson-node {
+  flex: 0 0 220px;
+  border-radius: 16px;
+  border: 1px solid #cdddf3;
+  background: linear-gradient(180deg, #fdfefe, #f1f7ff);
+  padding: 14px;
+  position: relative;
+  scroll-snap-align: start;
+}
+
+.lesson-node::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  right: -18px;
+  width: 18px;
+  height: 2px;
+  background: #c3d8f2;
+}
+
+.lesson-node:last-child::after {
+  display: none;
+}
+
+.lesson-node h3 {
+  margin: 12px 0 4px;
+}
+
+.lesson-node-circle {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: #103f7f;
+  background: #e6f1ff;
+  border: 2px solid #bcd5f3;
+}
+
+.lesson-node-meta {
+  margin: 0;
+  color: var(--c-text-muted);
+}
+
+.lesson-node-btn {
+  width: 100%;
+  margin-top: 14px;
+}
+
+.lesson-node.is-done .lesson-node-circle {
+  background: #dff8ea;
+  border-color: #a8dfbe;
+  color: #16623e;
+}
+
+.lesson-node.is-current {
+  border-color: #65a8ef;
+  box-shadow: 0 8px 18px rgba(33, 123, 218, 0.16);
+}
+
+.lesson-node.is-current::after {
+  background: #65a8ef;
+}
+
+.lesson-node.is-locked {
+  opacity: 0.7;
+}
+
+.lesson-node.is-locked .lesson-node-circle {
+  background: #eef2f8;
+  border-color: #cad5e4;
+  color: #5d6b86;
+}
+
+:root[data-theme="dark"] .page-subtitle,
+:root[data-theme="dark"] .setting-note,
+:root[data-theme="dark"] .progress-text,
+:root[data-theme="dark"] .toggle-row {
+  color: var(--c-text-muted);
+}
+
+:root[data-theme="dark"] .main-btn,
+:root[data-theme="dark"] .back-btn,
+:root[data-theme="dark"] .game-button,
+:root[data-theme="dark"] .card button,
+:root[data-theme="dark"] .lesson-action.is-done {
+  background: linear-gradient(180deg, #22314d, #1c2942);
+  color: var(--c-text);
+  border-color: #4f6d9d;
+}
+
+:root[data-theme="dark"] .page-header,
+:root[data-theme="dark"] .setting-group,
+:root[data-theme="dark"] .card,
+:root[data-theme="dark"] .modal-content,
+:root[data-theme="dark"] .game-card,
+:root[data-theme="dark"] .visual-choice-btn,
+:root[data-theme="dark"] .face-preview-wrap,
+:root[data-theme="dark"] .friends-toolbar.card {
+  background: linear-gradient(180deg, #202d45, #1a2539);
+  border-color: #34507b;
+}
+
+:root[data-theme="dark"] .game-area {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(103, 214, 255, 0.08), transparent 170px),
+    radial-gradient(circle at 8% 90%, rgba(95, 158, 255, 0.08), transparent 180px),
+    #182236;
+}
+
+:root[data-theme="dark"] .face-area {
+  background: linear-gradient(180deg, #1a263c, #152237);
+  border-right-color: #36517d;
+}
+
+:root[data-theme="dark"] .game-card.game-accent-a,
+:root[data-theme="dark"] .game-card.game-accent-b,
+:root[data-theme="dark"] .game-card.game-accent-c,
+:root[data-theme="dark"] .game-card.game-accent-d {
+  background: linear-gradient(180deg, #22314d, #1c2942);
+}
+
+:root[data-theme="dark"] .game-card-desc {
+  color: var(--c-text-muted);
+  opacity: 1;
+}
+
+:root[data-theme="dark"] .friend-status.is-active {
+  background: #1f3a2f;
+  border-color: #2f6a4d;
+  color: #9de0bc;
+}
+
+:root[data-theme="dark"] .friend-status.is-busy {
+  background: #3a3220;
+  border-color: #7f6a35;
+  color: #f0d89a;
+}
+
+:root[data-theme="dark"] .friend-status.is-offline {
+  background: #2a3242;
+  border-color: #4a5a79;
+  color: #b7c5df;
+}
+
+:root[data-theme="dark"] .lesson-level,
+:root[data-theme="dark"] .setting-value {
+  background: #243758;
+  border-color: #46689f;
+  color: #d6e6ff;
+>>>>>>> Stashed changes
+}
+
+:root[data-theme="dark"] .lesson-progress-bar {
+  background: #1a2941;
+  border-color: #3b5989;
+}
+
+:root[data-theme="dark"] .lesson-track::-webkit-scrollbar-thumb {
+  background: #476797;
+}
+
+:root[data-theme="dark"] .lesson-node {
+  background: linear-gradient(180deg, #202d45, #1a2539);
+  border-color: #34507b;
+}
+
+:root[data-theme="dark"] .lesson-node::after {
+  background: #3b5b8c;
+}
+
+:root[data-theme="dark"] .lesson-node.is-current {
+  border-color: #5d93e0;
+  box-shadow: 0 10px 20px rgba(14, 33, 64, 0.55);
+}
+
+:root[data-theme="dark"] .lesson-node.is-done .lesson-node-circle {
+  background: #1f3a2f;
+  border-color: #2f6a4d;
+  color: #9de0bc;
+}
+
+:root[data-theme="dark"] .lesson-node.is-locked .lesson-node-circle {
+  background: #2a3242;
+  border-color: #4a5a79;
+  color: #b7c5df;
 }
 
 /* =====================
@@ -685,6 +1127,15 @@ select {
     margin-left: var(--sidebar-width);
   }
 
+  .lesson-progress-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .lesson-node {
+    flex-basis: 190px;
+  }
+
   .game-container {
     display: block;
     height: auto;
@@ -699,6 +1150,158 @@ select {
 
   .game-area {
     width: 100%;
+<<<<<<< Updated upstream
     min-height: calc(100vh - 270px);
+=======
+    min-height: calc(100vh - 260px);
+    padding: 20px 14px;
+  }
+
+  .game-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .game-card {
+    min-height: 118px;
+    padding: 14px 10px;
+  }
+}
+
+@media (max-width: 680px) {
+  :root {
+    --sidebar-width: 0px;
+  }
+
+  .has-sidebar {
+    padding-bottom: 82px;
+  }
+
+  .has-sidebar .app-sidebar.gallery-sidebar {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 74px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    padding: 8px 10px;
+    border-top: 2px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .has-sidebar .gallery-sidebar .sidebar-list {
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 460px;
+  }
+
+  .has-sidebar .gallery-sidebar .gallery-btn {
+    width: 100%;
+    min-height: 56px;
+    max-width: 120px;
+  }
+
+  .has-sidebar .gallery-sidebar .theme-switch {
+    position: fixed;
+    right: 10px;
+    bottom: 86px;
+    width: 74px;
+    max-width: none;
+    padding: 4px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(18, 56, 114, 0.78);
+    backdrop-filter: blur(4px);
+    z-index: 25;
+  }
+
+  .has-sidebar .gallery-sidebar .theme-toggle {
+    width: 64px;
+    height: 34px;
+  }
+
+  .has-sidebar .gallery-sidebar .theme-toggle-thumb {
+    width: 24px;
+    height: 24px;
+  }
+
+  .has-sidebar .gallery-sidebar .theme-toggle.is-dark .theme-toggle-thumb {
+    transform: translateX(28px);
+  }
+
+  .has-sidebar .settings,
+  .has-sidebar .parent-container,
+  .has-sidebar .friends-container,
+  .has-sidebar .education-container,
+  .has-sidebar .game-container {
+    margin-left: 0;
+    width: 100%;
+    padding-right: 0;
+  }
+
+  .home-page #faceCanvas {
+    margin-left: 0;
+    width: 100%;
+    height: calc(100vh - 82px);
+  }
+
+  .parent-container,
+  .settings,
+  .friends-container,
+  .education-container,
+  .game-area {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .page-title {
+    font-size: 26px;
+  }
+
+  .game-list {
+    grid-template-columns: 1fr;
+  }
+
+  .lesson-node {
+    flex-basis: 170px;
+  }
+
+  .game-button {
+    width: 100%;
+    min-width: 0;
+    font-size: 22px;
+    padding: 16px 14px;
+  }
+
+  .visual-choice-grid,
+  .fish-choice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 420px) {
+  .face-area {
+    min-height: 190px;
+    padding: 10px;
+  }
+
+  .face-area #faceCanvas {
+    width: min(70vw, 220px);
+  }
+
+  #instructionText {
+    font-size: 24px;
+  }
+
+  .page-title {
+    font-size: 22px;
+  }
+
+  .visual-choice-grid,
+  .fish-choice-grid {
+    grid-template-columns: 1fr;
+>>>>>>> Stashed changes
   }
 }

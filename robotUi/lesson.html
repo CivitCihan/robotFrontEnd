@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Ders Adimlari</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-sidebar">
+
+<main class="education-container lesson-screen-page">
+  <header class="page-header lesson-screen-header">
+    <h1 id="lessonTitle" class="page-title">Ders Adimlari</h1>
+    <p id="lessonSubtitle" class="page-subtitle">Adimlari soldan saga tamamla.</p>
+  </header>
+
+  <section class="card lesson-picker-card">
+    <h2 class="lesson-track-title">Ders Secimi</h2>
+    <div id="lessonPicker" class="lesson-picker" aria-label="Ders secimi"></div>
+  </section>
+
+  <section class="card lesson-progress-card">
+    <div class="lesson-progress-top">
+      <span id="lessonLevel" class="lesson-level">Baslangic</span>
+      <p id="lessonProgressText" class="lesson-progress-text">0/0 tamamlandi</p>
+    </div>
+    <div class="lesson-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <span id="lessonProgressFill"></span>
+    </div>
+  </section>
+
+  <section class="card lesson-track-card">
+    <h2 class="lesson-track-title">Yol Haritasi</h2>
+    <div id="lessonTrack" class="lesson-track" aria-label="Yatay ders adimlari"></div>
+  </section>
+
+  <section class="card lesson-content-card">
+    <h2 id="stepTitle" class="lesson-content-title">Adim Icerigi</h2>
+    <p id="stepPrompt" class="lesson-content-prompt"></p>
+    <div id="stepInteraction" class="lesson-content-interaction"></div>
+    <p id="stepFeedback" class="lesson-step-feedback"></p>
+    <button id="stepActionButton" class="main-btn lesson-step-action" type="button">Cevabi Kontrol Et</button>
+  </section>
+</main>
+
+<script src="js/sidebar.js"></script>
+<script src="js/learningProgress.js"></script>
+<script src="js/lesson.js"></script>
+
+</body>
+</html>

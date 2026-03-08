@@ -20,6 +20,21 @@ if (!instructionText || !gameContent) {
     "teach-colors-objects",
   ];
   const registry = window.RobotGames || {};
+  const gameRequirements = {
+    "find-color": ["Renkleri Eslestir"],
+    "memory-cards": ["Hafiza Kartlari"],
+    counting: ["Sayi Tanima"],
+    "shape-match": ["Sekil Ailesi"],
+    "teach-animals": ["Hayvan Sesleri"],
+    "fish-color": ["Renkleri Eslestir"],
+    "teach-numbers": ["Sayi Tanima"],
+    "number-order": ["Sayi Siralama"],
+    "teach-shapes-2d": ["Sekil Ailesi"],
+    "teach-shapes-3d": ["Sekil Ailesi"],
+    "shape-family": ["Sekil Ailesi"],
+    "teach-colors-name": ["Renkleri Eslestir"],
+    "teach-colors-objects": ["Renkleri Eslestir"],
+  };
   const games = gameIds
     .map((id) => registry[id])
     .filter(Boolean);
@@ -65,17 +80,49 @@ if (!instructionText || !gameContent) {
       const desc = document.createElement("span");
       desc.className = "game-card-desc";
       desc.textContent = game.description;
+      const missingLessons = getMissingLessons(game.id);
+      const isLocked = missingLessons.length > 0;
 
       card.appendChild(dot);
       card.appendChild(icon);
       card.appendChild(name);
-      card.appendChild(desc);
+
+      if (isLocked) {
+        card.classList.add("is-locked");
+        card.setAttribute("aria-disabled", "true");
+        desc.textContent = "Kilitli";
+
+        const lockText = document.createElement("span");
+        lockText.className = "game-card-lock";
+        lockText.textContent = "Once tamamla: " + missingLessons.join(", ");
+        card.appendChild(lockText);
+      } else {
+        card.appendChild(desc);
+      }
 
       card.addEventListener("click", function () {
+        if (isLocked) {
+          showMessage("Bu oyun kilitli. Once su dersi tamamla: " + missingLessons.join(", "), "Kilitli Oyun");
+          return;
+        }
         launchGame(game);
       });
 
       gameContent.appendChild(card);
+    });
+  }
+
+  function getMissingLessons(gameId) {
+    const required = gameRequirements[gameId] || [];
+    if (required.length === 0) {
+      return [];
+    }
+
+    return required.filter((lessonTitle) => {
+      if (!window.LearningProgress) {
+        return true;
+      }
+      return !window.LearningProgress.isLessonCompleted(lessonTitle);
     });
   }
 

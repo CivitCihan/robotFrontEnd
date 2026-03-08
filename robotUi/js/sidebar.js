@@ -10,6 +10,7 @@
     var items = [
       { href: "index.html", label: "Ana Sayfa", icon: "&#127968;" },
       { href: "game.html", label: "Oyun", icon: "&#127918;" },
+      { href: "lesson.html", label: "Dersler", icon: "&#127891;" },
       { href: "settings.html", label: "Ayarlar", icon: "&#9881;" },
     ];
 
