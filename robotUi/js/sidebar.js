@@ -22,41 +22,41 @@
 
   function syncThemeControls(controlsRoot, theme) {
     if (!controlsRoot) return;
-    var buttons = controlsRoot.querySelectorAll(".theme-btn");
-    buttons.forEach(function (button) {
-      var isActive = button.getAttribute("data-theme-value") === theme;
-      button.classList.toggle("is-active", isActive);
-      button.setAttribute("aria-pressed", isActive ? "true" : "false");
-    });
+    var toggle = controlsRoot.querySelector(".theme-toggle");
+    if (!toggle) return;
+    var isDark = theme === "dark";
+    toggle.classList.toggle("is-dark", isDark);
+    toggle.setAttribute("aria-checked", isDark ? "true" : "false");
+    toggle.setAttribute("aria-label", isDark ? "Koyu mod acik" : "Aydinlik mod acik");
+    var icon = toggle.querySelector(".theme-icon");
+    if (icon) {
+      icon.textContent = isDark ? "☾" : "☀";
+    }
   }
 
   function buildThemeControls() {
     var currentTheme = getStoredTheme();
     var wrap = document.createElement("div");
     wrap.className = "theme-switch";
-    wrap.setAttribute("role", "group");
-    wrap.setAttribute("aria-label", "Tema secimi");
+    wrap.setAttribute("aria-label", "Tema anahtari");
 
-    var lightBtn = document.createElement("button");
-    lightBtn.className = "theme-btn";
-    lightBtn.type = "button";
-    lightBtn.setAttribute("data-theme-value", "light");
-    lightBtn.innerHTML = '<span aria-hidden="true">&#9728;</span><span class="theme-btn-text">Aydinlik</span>';
+    var toggle = document.createElement("button");
+    toggle.className = "theme-toggle";
+    toggle.type = "button";
+    toggle.setAttribute("role", "switch");
 
-    var darkBtn = document.createElement("button");
-    darkBtn.className = "theme-btn";
-    darkBtn.type = "button";
-    darkBtn.setAttribute("data-theme-value", "dark");
-    darkBtn.innerHTML = '<span aria-hidden="true">&#9790;</span><span class="theme-btn-text">Koyu</span>';
+    var thumb = document.createElement("span");
+    thumb.className = "theme-toggle-thumb";
+    thumb.innerHTML = '<span class="theme-icon" aria-hidden="true">☀</span>';
+    toggle.appendChild(thumb);
 
-    [lightBtn, darkBtn].forEach(function (button) {
-      button.addEventListener("click", function () {
-        var nextTheme = button.getAttribute("data-theme-value");
-        setTheme(nextTheme, wrap);
-      });
-      wrap.appendChild(button);
+    toggle.addEventListener("click", function () {
+      var current = getStoredTheme();
+      var nextTheme = current === "dark" ? "light" : "dark";
+      setTheme(nextTheme, wrap);
     });
 
+    wrap.appendChild(toggle);
     syncThemeControls(wrap, currentTheme);
     return wrap;
   }
